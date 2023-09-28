@@ -23,11 +23,9 @@ def pascal_triangle(n):
             previous_row = triangle[i - 2]
             new_row = [1]
             
-            for j in range(0, len(previous_row)):
-                try:
-                    new_row.append(previous_row[j] + previous_row[j + 1])
-                except IndexError:
-                    new_row.append(1)
+            for j in range(0, len(previous_row) - 1):
+                new_row.append(previous_row[j] + previous_row[j + 1])
+            new_row.append(1)
             
             triangle.append(new_row)
                                     
