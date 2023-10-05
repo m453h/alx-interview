@@ -13,7 +13,7 @@ def canUnlockAll(boxes):
        Return: True if all boxes can be opened ELSE, return False
     """
     visited_indexes = set()
-    visited_indexes = iterate_over_boxes(boxes, 0, visited_indexes)
+    iterate_over_boxes(boxes, 0, visited_indexes)
     return len(visited_indexes) == len(boxes)
 
 
@@ -38,4 +38,3 @@ def iterate_over_boxes(boxes, index, visited_indexes):
     for key in boxes[index]:
         if key < len(boxes):
             iterate_over_boxes(boxes, key, visited_indexes)
-    return visited_indexes
