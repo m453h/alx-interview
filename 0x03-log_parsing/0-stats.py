@@ -86,10 +86,8 @@ class LogParser:
                 if parsed_data is not None:
                     self.total_size += parsed_data["line_size"]
                     if parsed_data["is_valid_code"]:
-                        if self.stats.get(parsed_data["status_code"]) is None:
-                            self.stats[parsed_data["status_code"]] = 1
-                        else:
-                            self.stats[parsed_data["status_code"]] += 1
+                        total = self.stats.get(parsed_data["status_code"], 0)
+                        self.stats[parsed_data["status_code"]] = total + 1
                 if line_count % 10 == 0:
                     self.display_stats()
             self.display_stats()
