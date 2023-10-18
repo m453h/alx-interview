@@ -47,9 +47,12 @@ class LogParser:
         """
         Parses input line
         line (string): The input line of log stream
+
         Returns (dict): Dictionary with size of line,
                         status code and
                         validity of read status code
+        Raises: (IndexError) , (ValueError) when invalid
+                line format is encountered
         """
         line_parts = line.split()
         try:
