@@ -15,25 +15,21 @@ def validUTF8(data):
     Return:
             True if is a valid UTF-8 encoding ELSE, return False
     """
-    expected_continuation_bytes_count = 0
-
+    state = 0
     for byte in data:
-        if expected_continuation_bytes_count > 0:
-            if (byte >> 6) != 0b10:
-                return False
-            expected_continuation_bytes_count -= 1
-        else:
+        if state == 0:
             if (byte >> 7) == 0b0:
-                expected_continuation_bytes_count = 0
+                state = 0
             elif (byte >> 5) == 0b110:
-                expected_continuation_bytes_count = 1
+                state = 1
             elif (byte >> 4) == 0b1110:
-                expected_continuation_bytes_count = 2
+                state = 2
             elif (byte >> 3) == 0b11110:
-                expected_continuation_bytes_count = 3
+                state = 3
             else:
                 return False
-
-    if expected_continuation_bytes_count == 0:
-        return True
-    return False
+        elif state > 0:
+            if (byte >> 6) != 0b10:
+                return False
+            state = state - 1
+    return state == 0
