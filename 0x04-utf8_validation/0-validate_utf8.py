@@ -16,18 +16,19 @@ def validUTF8(data):
     state = 0
     for byte in data:
         if state == 0:
-            if (byte >> 7) == 0b0:
-                state = 0
+            if (byte >> 7) == 0:
+                continue
             elif (byte >> 5) == 0b110:
-                state = 1
+                state += 1
             elif (byte >> 4) == 0b1110:
-                state = 2
+                state += 2
             elif (byte >> 3) == 0b11110:
-                state = 3
+                state += 3
             else:
                 return False
-        elif state > 0:
-            if (byte >> 6) != 0b10:
+        else:
+            if (byte >> 6) == 0b10:
+                state -= 1
+            else:
                 return False
-            state = state - 1
     return state == 0
