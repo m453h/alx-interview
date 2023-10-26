@@ -15,37 +15,25 @@ def validUTF8(data):
     Return:
             True if is a valid UTF-8 encoding ELSE, return False
     """
-    if type(data) is not list and len(data) == 0:
-        return False
+    expected_continuation_bytes_count = 0
 
-    i = 0
-
-    while i < len(data):
-        binary_block = format(data[i], '08b')
-        if binary_block.startswith('0'):
-            i += 1
-        elif binary_block.startswith('110'):
-            if i + 1 < len(data) \
-                    and format(data[i + 1], '08b').startswith('10'):
-                i += 2
-            else:
+    for byte in data:
+        if expected_continuation_bytes_count > 0:
+            if (byte >> 6) != 0b10:
                 return False
-        elif binary_block.startswith('1110'):
-            if i + 2 < len(data) \
-                    and format(data[i + 1], '08b').startswith('10') \
-                    and format(data[i + 2], '08b').startswith('10'):
-                i += 3
-            else:
-                return False
-        elif binary_block.startswith('11110'):
-            if i + 3 < len(data) \
-                    and format(data[i + 1], '08b').startswith('10') \
-                    and format(data[i + 2], '08b').startswith('10') \
-                    and format(data[i + 3], '08b').startswith('10'):
-                i += 4
-            else:
-                return False
+            expected_continuation_bytes_count -= 1
         else:
-            return False
+            if (byte >> 7) == 0b0:
+                expected_continuation_bytes_count = 0
+            elif (byte >> 5) == 0b110:
+                expected_continuation_bytes_count = 1
+            elif (byte >> 4) == 0b1110:
+                expected_continuation_bytes_count = 2
+            elif (byte >> 3) == 0b11110:
+                expected_continuation_bytes_count = 3
+            else:
+                return False
 
-    return True
+    if expected_continuation_bytes_count == 0:
+        return True
+    return False
