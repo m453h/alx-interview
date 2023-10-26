@@ -13,6 +13,11 @@ def validUTF8(data):
         Return:
                 True if is a valid UTF-8 encoding ELSE, return False
     """
+    if not isinstance(data, list):
+        return False
+    for x in data:
+        if not isinstance(x, int):
+            return False
     state = 0
     for byte in data:
         if state == 0:
