@@ -15,7 +15,11 @@ def validUTF8(data):
     Return:
             True if is a valid UTF-8 encoding ELSE, return False
     """
+    if type(data) is not list and len(data) == 0 or data == []:
+        return False
+
     i = 0
+
     while i < len(data):
         binary_block = format(data[i], '08b')
         if binary_block.startswith('0'):
