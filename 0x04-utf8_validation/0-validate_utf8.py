@@ -15,7 +15,7 @@ def validUTF8(data):
     Return:
             True if is a valid UTF-8 encoding ELSE, return False
     """
-    if type(data) is not list and len(data) == 0 or data == []:
+    if type(data) is not list and len(data) == 0:
         return False
 
     i = 0
