@@ -15,9 +15,13 @@ def validUTF8(data):
     """
     if not isinstance(data, list):
         return False
-    for x in data:
-        if not isinstance(x, int):
+    for byte in data:
+        if not isinstance(byte, int):
             return False
+        byte %= 256
+        if byte >= 248:
+            return False
+
     state = 0
     for byte in data:
         if state == 0:
