@@ -30,7 +30,8 @@ class NQueens:
         self.solve([], [], [])
         self.display_solution()
 
-    def solve(self, queens: List[int], diff_of_xy: List[int], sum_of_xy: List[int]):
+    def solve(self, queens: List[int], diff_of_xy: List[int],
+              sum_of_xy: List[int]):
         """
         Solves the NQueens problem recursively.
 
