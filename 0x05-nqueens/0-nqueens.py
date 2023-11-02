@@ -1,7 +1,15 @@
 #!/usr/bin/python3
-
 """
 This  module contains the solution for the N-Queens problem
+
+Usage:
+    ./0-nqueens.py <N>
+
+Args:
+ - N: The number of non-attacking Queens
+
+Example:
+    ./0-nqueens.py 6
 """
 import sys
 
@@ -23,6 +31,7 @@ class NQueens:
         if self.n < 4:
             print("N must be at least 4")
             sys.exit(1)
+
         self.solutions = []
 
     def run(self):
