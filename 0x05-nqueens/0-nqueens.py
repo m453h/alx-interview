@@ -62,7 +62,7 @@ class NQueens:
         Displays the NQueens solution.
         """
         for j in self.solutions:
-            print([[i, j[i]] for i in range(self.n)])
+            print([[i, val] for i, val in enumerate(j)])
 
 
 if __name__ == "__main__":
