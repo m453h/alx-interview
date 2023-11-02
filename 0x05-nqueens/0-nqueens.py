@@ -53,13 +53,9 @@ class NQueens:
             return
 
         for i in range(self.n):
-            if (
-                    i in queens
-                    or (len(queens) - i) in diff_of_xy
-                    or (len(queens) + i) in sum_of_xy
-            ):
+            if i in queens or (len(queens) - i) in diff_of_xy \
+                    or (len(queens) + i) in sum_of_xy:
                 continue
-
             self.solve(
                 queens + [i],
                 diff_of_xy + [len(queens) - i],
@@ -71,7 +67,7 @@ class NQueens:
         Displays the NQueens solution.
         """
         for j in self.solutions:
-            print([[i, val] for i, val in enumerate(j)])
+            print([[i, j[i]] for i in range(self.n)])
 
 
 if __name__ == "__main__":
