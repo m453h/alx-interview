@@ -1,9 +1,9 @@
 #!/usr/bin/python3
+
 """
 This  module contains the solution for the N-Queens problem
 """
 import sys
-from typing import List
 
 
 class NQueens:
@@ -23,15 +23,14 @@ class NQueens:
         if self.n < 4:
             print("N must be at least 4")
             sys.exit(1)
-        self.solutions: List[List[int]] = []
+        self.solutions = []
 
     def run(self):
         """Runs the NQueens solution."""
         self.solve([], [], [])
         self.display_solution()
 
-    def solve(self, queens: List[int], diff_of_xy: List[int],
-              sum_of_xy: List[int]):
+    def solve(self, queens, diff_of_xy, sum_of_xy):
         """
         Solves the NQueens problem recursively.
 
