@@ -24,4 +24,10 @@ def rotate_2d_matrix(matrix):
 
     # Reverse each row in the transposed matrix
     for i in range(n):
-        matrix[i].reverse()
+        left = 0
+        right = n - 1
+        while left < right:
+            matrix[i][left], matrix[i][right] =\
+                matrix[i][right], matrix[i][left]
+            left += 1
+            right -= 1
