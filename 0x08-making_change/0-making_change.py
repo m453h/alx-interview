@@ -16,5 +16,18 @@ def makeChange(coins, total):
                 -1 if total cannot be met by any number of coins present
 
     """
-    pass
-
+    coins.sort(reverse=True)
+    number_of_coins = 0
+    i = 0
+    while True:
+        if i < len(coins):
+            if coins[i] <= total:
+                total -= coins[i]
+                number_of_coins += 1
+            else:
+                i += 1
+        else:
+            break
+    if total != 0:
+        number_of_coins = -1
+    return number_of_coins
