@@ -16,6 +16,8 @@ def makeChange(coins, total):
                 -1 if total cannot be met by any number of coins present
 
     """
+    if total <= 0:
+        return 0
     coins.sort(reverse=True)
     number_of_coins = 0
     i = 0
