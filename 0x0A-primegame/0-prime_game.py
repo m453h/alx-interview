@@ -11,48 +11,62 @@ def isWinner(x, nums):
     Return:
         String: name of the winner
     """
-    player_one_total_wins = 0
-    player_two_total_wins = 0
-    player_one_name = "Maria"
-    player_two_name = "Ben"
+    if not isinstance(x, int) or not isinstance(nums, list):
+        return None
+
+    maria_total_wins = 0
+    ben_total_wins = 0
 
     # Iterate per given number of rounds
-    for i in range(x):
+    for i in range(min(x, len(nums))):
         num = nums[i]
         # Get the set used in the current round
         set_in_round = list(range(1, num + 1))
 
-        # Get the prime numbers within the specified n range
-        prime_numbers = get_prime_numbers_in_range(1, num)
-
-        # We always start with player one, if we don't have
-        # any prime numbers then automatically player two wins
-        # the round
-        if not prime_numbers:
-            player_two_total_wins += 1
-            continue
-
-        # For every num in nums we must start the selection
-        # with player one
-        is_player_one_turn = True
-
-        # Start iteration of the round since we have prime numbers
         while True:
-            # If we don't find a prime number
-            if not prime_numbers:
-                if is_player_one_turn:
-                    player_two_total_wins += 1
-                else:
-                    player_one_total_wins += 1
-                break
-            set_in_round = update_set_in_round(set_in_round,
-                                               prime_numbers.pop(0))
-            is_player_one_turn = not is_player_one_turn
+            # Start by allowing Maria to pick a number
+            number_picked_by_maria = pick_prime_number(set_in_round)
 
-    if player_one_total_wins > player_two_total_wins:
-        return player_one_name
-    elif player_two_total_wins > player_one_total_wins:
-        return player_two_name
+            # If Maria can't make a selection the Ben wins this round
+            if number_picked_by_maria is None:
+                ben_total_wins += 1
+                break
+
+            # If Maria picks a number then remove it and its multiples and
+            # then let Ben have his pick
+            set_in_round = \
+                update_set_in_round(set_in_round, number_picked_by_maria)
+            # Ben picks the number after Maria
+            number_picked_by_ben = pick_prime_number(set_in_round)
+
+            # If Ben can't pick a number then Maria wins this round
+            if number_picked_by_ben is None:
+                maria_total_wins += 1
+                break
+
+            # If Ben picks a number remove it and its multiples in
+            # and let Maria have another pick in the next iteration
+            set_in_round = \
+                update_set_in_round(set_in_round, number_picked_by_ben)
+
+    if maria_total_wins > ben_total_wins:
+        return "Maria"
+    elif ben_total_wins > maria_total_wins:
+        return "Ben"
+    return None
+
+
+def pick_prime_number(nums):
+    """
+    Picks a prime number in an optimal manner
+    Args:
+        nums (list of ints): is an array of n numbers
+    Return:
+        int: Prime number picked by player
+    """
+    for num in nums:
+        if is_prime(num):
+            return num
     return None
 
 
