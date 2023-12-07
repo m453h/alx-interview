@@ -45,6 +45,7 @@ def isWinner(x, nums):
                 break
             set_in_round = update_set_in_round(set_in_round,
                                                prime_numbers.pop(0))
+            is_player_one_turn = not is_player_one_turn
 
     if player_one_total_wins > player_two_total_wins:
         return player_one_name
