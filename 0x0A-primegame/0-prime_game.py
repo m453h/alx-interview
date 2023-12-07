@@ -16,10 +16,8 @@ def isWinner(x, nums):
     if not x or not nums or x > len(nums):
         return None
 
-    player_one_total_wins = 0
-    player_two_total_wins = 0
-    player_one_name = "Maria"
-    player_two_name = "Ben"
+    maria_total_wins = 0
+    ben_total_wins = 0
 
     # Iterate per given number of rounds
     for i in range(x):
@@ -31,35 +29,16 @@ def isWinner(x, nums):
         # Then Player#1 will always have the last pick and win the round
         # Otherwise it will always favour Player#2
         if prime_numbers_count % 2 == 0:
-            player_two_total_wins += 1
+            ben_total_wins += 1
         else:
-            player_one_total_wins += 1
+            maria_total_wins += 1
 
-    if player_one_total_wins > player_two_total_wins:
-        return player_one_name
-    elif player_two_total_wins > player_one_total_wins:
-        return player_two_name
+    if maria_total_wins > ben_total_wins:
+        return "Maria"
+    elif ben_total_wins > maria_total_wins:
+        return "Ben"
     return None
 
-
-def is_prime(n):
-    """
-    Returns True if n is prime, else False
-     Args:
-        n (int): Start range to look for prime number
-    Return:
-        (boolean): True if number is prime, ELSE false
-    """
-    if n < 2:
-        return False
-    if n == 2:
-        return True
-    if n % 2 == 0:
-        return False
-    for i in range(3, int(n ** 0.5) + 1, 2):
-        if n % i == 0:
-            return False
-    return True
 
 
 def get_prime_numbers_in_range(start, end):
@@ -71,6 +50,24 @@ def get_prime_numbers_in_range(start, end):
     Return:
         (list): List of prime number within specified range
     """
+    def is_prime(number):
+        """
+        Returns True if n is prime, else False
+         Args:
+            number (int): Start range to look for prime number
+        Return:
+            (boolean): True if number is prime, ELSE false
+        """
+        if number < 2:
+            return False
+        if number == 2:
+            return True
+        if number % 2 == 0:
+            return False
+        for i in range(3, int(number ** 0.5) + 1, 2):
+            if number % i == 0:
+                return False
+        return True
     primes = []
     for n in range(start, end + 1):
         if is_prime(n):
