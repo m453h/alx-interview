@@ -34,8 +34,10 @@ def isWinner(x, nums):
 
             # If Maria picks a number then remove it and its multiples and
             # then let Ben have his pick
-            set_in_round = \
-                update_set_in_round(set_in_round, number_picked_by_maria)
+            set_in_round[:] = \
+                [num for num in set_in_round
+                 if num % number_picked_by_maria != 0]
+
             # Ben picks the number after Maria
             number_picked_by_ben = pick_prime_number(set_in_round)
 
@@ -46,8 +48,9 @@ def isWinner(x, nums):
 
             # If Ben picks a number remove it and its multiples in
             # and let Maria have another pick in the next iteration
-            set_in_round = \
-                update_set_in_round(set_in_round, number_picked_by_ben)
+            set_in_round[:] = \
+                [num for num in set_in_round
+                 if num % number_picked_by_ben != 0]
 
     if maria_total_wins > ben_total_wins:
         return "Maria"
@@ -68,22 +71,6 @@ def pick_prime_number(nums):
         if is_prime(num):
             return num
     return None
-
-
-def update_set_in_round(set_in_round, selected_prime_number):
-    """
-     Args:
-        set_in_round (list of ints): is an array of n numbers
-        selected_prime_number (int): The selected prime number
-    Return:
-        String: name of the winner
-    Returns new set in round with no multiple(s) of selected prime number
-    """
-    new_set_in_round = []
-    for num in set_in_round:
-        if num % selected_prime_number != 0:
-            new_set_in_round.append(num)
-    return new_set_in_round
 
 
 def is_prime(n):
