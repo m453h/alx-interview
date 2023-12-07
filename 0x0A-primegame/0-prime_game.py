@@ -16,7 +16,9 @@ def isWinner(x, nums):
     player_one_name = "Maria"
     player_two_name = "Ben"
 
-    for num in nums:
+    # Iterate per given number of rounds
+    for i in range(x):
+        num = nums[i]
         # Get the set used in the current round
         set_in_round = list(range(1, num + 1))
 
